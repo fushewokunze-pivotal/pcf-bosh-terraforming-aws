@@ -18,10 +18,10 @@ resource "tls_self_signed_cert" "self_signed_cert" {
 
   dns_names = [
     # hostname
-    "uaa.sys.${var.env_name}.${var.dns_suffix}"
-    "*.uaa.sys.${var.env_name}.${var.dns_suffix}"
-    "login.sys.${var.env_name}.${var.dns_suffix}"
-    "*.login.sys.${var.env_name}.${var.dns_suffix}"
+    "uaa.sys.${var.env_name}.${var.dns_suffix}",
+    "*.uaa.sys.${var.env_name}.${var.dns_suffix}",
+    "login.sys.${var.env_name}.${var.dns_suffix}",
+    "*.login.sys.${var.env_name}.${var.dns_suffix}",
     
   ]
   
