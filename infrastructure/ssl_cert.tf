@@ -16,6 +16,16 @@ resource "tls_self_signed_cert" "self_signed_cert" {
     organizational_unit = "PCF Release Engineering"
   }
 
+  dns_names = [
+    # hostname
+    "uaa.sys.${var.env_name}.${var.dns_suffix}"
+    "*.uaa.sys.${var.env_name}.${var.dns_suffix}"
+    "login.sys.${var.env_name}.${var.dns_suffix}"
+    "*.login.sys.${var.env_name}.${var.dns_suffix}"
+    
+  ]
+  
+  
   validity_period_hours = 8760
 
   allowed_uses = [
