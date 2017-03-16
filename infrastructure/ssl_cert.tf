@@ -25,6 +25,7 @@ resource "tls_self_signed_cert" "self_signed_cert" {
     
   ]
   
+  is_ca_certificate = true
   
   validity_period_hours = 8760
 
