@@ -116,6 +116,14 @@ resource "aws_security_group" "mysql_security_group" {
     from_port   = 3306
     to_port     = 3306
   }
+  
+   ingress {
+    cidr_blocks = ["0.0.0.0/0"]
+    protocol    = "tcp"
+    from_port   = 8081
+    to_port     = 8081
+  }
+
 
   egress {
     from_port = 0
