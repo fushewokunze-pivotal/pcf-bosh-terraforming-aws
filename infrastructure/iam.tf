@@ -72,7 +72,7 @@ resource "aws_iam_policy" "aws_service_broker_rds" {
   policy = "${data.template_file.aws_service_broker_rds.rendered}"
 }
 
-resource "aws_iam_policy_attachment" "aws_sb_user_policy" {
+resource "aws_iam_policy_attachment" "aws_sb_user_policy_rds" {
   name       = "${var.env_name}_aws_sb_iam_user_policy"
   users      = ["${aws_iam_user.aws_sb_iam_user.name}"]
   policy_arn = "${aws_iam_policy.aws_service_broker_rds.arn}"
@@ -90,7 +90,7 @@ resource "aws_iam_policy" "aws_service_broker_s3" {
   policy = "${data.template_file.aws_service_broker_s3.rendered}"
 }
 
-resource "aws_iam_policy_attachment" "aws_sb_user_policy" {
+resource "aws_iam_policy_attachment" "aws_sb_user_policy_s3" {
   name       = "${var.env_name}_aws_sb_iam_user_policy"
   users      = ["${aws_iam_user.aws_sb_iam_user.name}"]
   policy_arn = "${aws_iam_policy.aws_service_broker_s3.arn}"
@@ -109,7 +109,7 @@ resource "aws_iam_policy" "aws_service_broker_sqs" {
   policy = "${data.template_file.aws_service_broker_sqs.rendered}"
 }
 
-resource "aws_iam_policy_attachment" "aws_sb_user_policy" {
+resource "aws_iam_policy_attachment" "aws_sb_user_policy_sqs" {
   name       = "${var.env_name}_aws_sb_iam_user_policy"
   users      = ["${aws_iam_user.aws_sb_iam_user.name}"]
   policy_arn = "${aws_iam_policy.aws_service_broker_sqs.arn}"
@@ -127,7 +127,7 @@ resource "aws_iam_policy" "aws_service_broker_dynamodb" {
   policy = "${data.template_file.aws_service_broker_dynamodb.rendered}"
 }
 
-resource "aws_iam_policy_attachment" "aws_sb_user_policy" {
+resource "aws_iam_policy_attachment" "aws_sb_user_policy_dynamodb" {
   name       = "${var.env_name}_aws_sb_iam_user_policy"
   users      = ["${aws_iam_user.aws_sb_iam_user.name}"]
   policy_arn = "${aws_iam_policy.aws_service_broker_dynamodb.arn}"
