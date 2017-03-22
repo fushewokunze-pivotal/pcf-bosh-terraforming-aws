@@ -48,26 +48,90 @@ resource "aws_iam_policy_attachment" "bosh_user_policy" {
   policy_arn = "${aws_iam_policy.bosh.arn}"
 }
 
-resource "aws_iam_user" "aws_service_broker_iam_user" {
-  name = "${var.env_name}_aws_service_broker_iam_user"
+###AWS SERVICE BROKER
+
+##BROKER USER
+
+resource "aws_iam_user" "aws_sb_iam_user" {
+  name = "${var.env_name}_aws_sb_iam_user"
 }
 
-resource "aws_iam_access_key" "aws_service_broker_iam_user_access_key" {
-  user = "${aws_iam_user.aws_service_broker_iam_user.name}"
+resource "aws_iam_access_key" "aws_sb_iam_user_access_key" {
+  user = "${aws_iam_user.aws_sb_iam_user.name}"
 }
 
-data "template_file" "aws_service_broker" {
-  template = "${file("${path.root}/templates/iam_aws_service_broker_buckets_policy.json")}"
+#RDS POLICY
+
+data "template_file" "aws_service_broker_rds" {
+  template = "${file("${path.root}/templates/aws_service_broker_rds_policy.json")}"
 }
 
-resource "aws_iam_policy" "aws_service_broker" {
-  name   = "${var.env_name}_aws_service_broker"
-  policy = "${data.template_file.aws_service_broker.rendered}"
+resource "aws_iam_policy" "aws_service_broker_rds" {
+  name   = "${var.env_name}_aws_service_broker_rds"
+  description = "Service Broker for AWS Service Key policy for rds"
+  policy = "${data.template_file.aws_service_broker_rds.rendered}"
 }
 
-resource "aws_iam_policy_attachment" "aws_service_broker_user_policy" {
-  name       = "${var.env_name}_aws_service_broker_iam_user_policy"
-  users      = ["${aws_iam_user.aws_service_broker_iam_user.name}"]
-  policy_arn = "${aws_iam_policy.aws_service_broker.arn}"
+resource "aws_iam_policy_attachment" "aws_sb_user_policy" {
+  name       = "${var.env_name}_aws_sb_iam_user_policy"
+  users      = ["${aws_iam_user.aws_sb_iam_user.name}"]
+  policy_arn = "${aws_iam_policy.aws_service_broker_rds.arn}"
 }
+
+#S3 Policy
+
+data "template_file" "aws_service_broker_s3" {
+  template = "${file("${path.root}/templates/aws_service_broker_s3_policy.json")}"
+}
+
+resource "aws_iam_policy" "aws_service_broker_s3" {
+  name   = "${var.env_name}_aws_service_broker_s3"
+  description = "Service Broker for AWS Service Key policy for s3"
+  policy = "${data.template_file.aws_service_broker_s3.rendered}"
+}
+
+resource "aws_iam_policy_attachment" "aws_sb_user_policy" {
+  name       = "${var.env_name}_aws_sb_iam_user_policy"
+  users      = ["${aws_iam_user.aws_sb_iam_user.name}"]
+  policy_arn = "${aws_iam_policy.aws_service_broker_s3.arn}"
+}
+
+
+#SQS Policy
+
+data "template_file" "aws_service_broker_sqs" {
+  template = "${file("${path.root}/templates/aws_service_broker_sqs_policy.json")}"
+}
+
+resource "aws_iam_policy" "aws_service_broker_sqs" {
+  name   = "${var.env_name}_aws_service_broker_sqs"
+  description = "Service Broker for AWS Service Key policy for sqs"
+  policy = "${data.template_file.aws_service_broker_sqs.rendered}"
+}
+
+resource "aws_iam_policy_attachment" "aws_sb_user_policy" {
+  name       = "${var.env_name}_aws_sb_iam_user_policy"
+  users      = ["${aws_iam_user.aws_sb_iam_user.name}"]
+  policy_arn = "${aws_iam_policy.aws_service_broker_sqs.arn}"
+}
+
+#Dynamodb
+
+data "template_file" "aws_service_broker_dynamodb" {
+  template = "${file("${path.root}/templates/aws_service_broker_dynamodb_policy.json")}"
+}
+
+resource "aws_iam_policy" "aws_service_broker_dynamodb" {
+  name   = "${var.env_name}_aws_service_broker_dynamodb"
+  description = "Service Broker for AWS Service Key policy for dynamodb"
+  policy = "${data.template_file.aws_service_broker_dynamodb.rendered}"
+}
+
+resource "aws_iam_policy_attachment" "aws_sb_user_policy" {
+  name       = "${var.env_name}_aws_sb_iam_user_policy"
+  users      = ["${aws_iam_user.aws_sb_iam_user.name}"]
+  policy_arn = "${aws_iam_policy.aws_service_broker_dynamodb.arn}"
+}
+
+
 
