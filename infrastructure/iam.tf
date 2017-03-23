@@ -50,16 +50,6 @@ resource "aws_iam_policy_attachment" "bosh_user_policy" {
 
 ###AWS SERVICE BROKER
 
-##BROKER USER
-
-resource "aws_iam_user" "aws_sb_iam_user" {
-  name = "${var.env_name}_aws_sb_iam_user"
-}
-
-resource "aws_iam_access_key" "aws_sb_iam_user_access_key" {
-  user = "${aws_iam_user.aws_sb_iam_user.name}"
-}
-
 #RDS POLICY
 
 data "template_file" "aws_service_broker_rds" {
@@ -73,8 +63,8 @@ resource "aws_iam_policy" "aws_service_broker_rds" {
 }
 
 resource "aws_iam_policy_attachment" "aws_sb_user_policy_rds" {
-  name       = "${var.env_name}_aws_sb_iam_user_policy"
-  users      = ["${aws_iam_user.aws_sb_iam_user.name}"]
+  name       = "${var.env_name}_bosh_iam_user_policy"
+  users      = ["${aws_iam_user.bosh_iam_user.name}"]
   policy_arn = "${aws_iam_policy.aws_service_broker_rds.arn}"
 }
 
@@ -91,8 +81,8 @@ resource "aws_iam_policy" "aws_service_broker_s3" {
 }
 
 resource "aws_iam_policy_attachment" "aws_sb_user_policy_s3" {
-  name       = "${var.env_name}_aws_sb_iam_user_policy"
-  users      = ["${aws_iam_user.aws_sb_iam_user.name}"]
+  name       = "${var.env_name}_bosh_iam_user_policy"
+  users      = ["${aws_iam_user.bosh_iam_user.name}"]
   policy_arn = "${aws_iam_policy.aws_service_broker_s3.arn}"
 }
 
@@ -110,8 +100,8 @@ resource "aws_iam_policy" "aws_service_broker_sqs" {
 }
 
 resource "aws_iam_policy_attachment" "aws_sb_user_policy_sqs" {
-  name       = "${var.env_name}_aws_sb_iam_user_policy"
-  users      = ["${aws_iam_user.aws_sb_iam_user.name}"]
+  name       = "${var.env_name}_bosh_iam_user_policy"
+  users      = ["${aws_iam_user.bosh_iam_user.name}"]
   policy_arn = "${aws_iam_policy.aws_service_broker_sqs.arn}"
 }
 
@@ -128,10 +118,8 @@ resource "aws_iam_policy" "aws_service_broker_dynamodb" {
 }
 
 resource "aws_iam_policy_attachment" "aws_sb_user_policy_dynamodb" {
-  name       = "${var.env_name}_aws_sb_iam_user_policy"
-  users      = ["${aws_iam_user.aws_sb_iam_user.name}"]
+  name       = "${var.env_name}_bosh_iam_user_policy"
+  users      = ["${aws_iam_user.bosh_iam_user.name}"]
   policy_arn = "${aws_iam_policy.aws_service_broker_dynamodb.arn}"
 }
-
-
 
