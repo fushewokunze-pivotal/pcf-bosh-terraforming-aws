@@ -125,19 +125,19 @@ resource "aws_iam_policy_attachment" "aws_sb_user_policy_dynamodb" {
 
 # pcf
 
-data "template_file" "aws_service_broker_pcf" {
+data "template_file" "PCFInstallationPolicy" {
   template = "${file("${path.root}/templates/iam_aws_service_broker_buckets_policy.json")}"
 }
 
-resource "aws_iam_policy" "aws_service_broker_pcf" {
-  name   = "${var.env_name}_aws_service_broker_pcf"
+resource "aws_iam_policy" "PCFInstallationPolicy" {
+  name   = "${var.env_name}_PCFInstallationPolicy"
   description = "Installation Policy for PCF"
-  policy = "${data.template_file.aws_service_broker_pcf.rendered}"
+  policy = "${data.template_file.PCFInstallationPolicy.rendered}"
 }
 
 resource "aws_iam_policy_attachment" "aws_sb_user_policy_pcf" {
   name       = "${var.env_name}_bosh_iam_user_policy"
   users      = ["${aws_iam_user.bosh_iam_user.name}"]
-  policy_arn = "${aws_iam_policy.aws_service_broker_pcf.arn}"
+  policy_arn = "${aws_iam_policy.PCFInstallationPolicy.arn}"
 }
 
