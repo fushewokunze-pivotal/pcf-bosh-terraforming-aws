@@ -130,7 +130,8 @@ data "template_file" "PCFInstallationPolicy" {
 }
 
 resource "aws_iam_policy" "PCFInstallationPolicy" {
-  name   = "${var.env_name}_PCFInstallationPolicy"
+  #name   = "${var.env_name}_PCFInstallationPolicy"
+  name   = "PCFInstallationPolicy"
   description = "Installation Policy for PCF"
   policy = "${data.template_file.PCFInstallationPolicy.rendered}"
 }
