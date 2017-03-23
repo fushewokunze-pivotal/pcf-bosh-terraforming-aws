@@ -57,7 +57,7 @@ data "template_file" "aws_service_broker_rds" {
 }
 
 resource "aws_iam_policy" "aws_service_broker_rds" {
-  name   = "${var.env_name}_aws_service_broker_rds"
+  name   = "PCFAppDeveloperPolicy-rds"
   description = "Service Broker for AWS Service Key policy for rds"
   policy = "${data.template_file.aws_service_broker_rds.rendered}"
 }
@@ -75,7 +75,7 @@ data "template_file" "aws_service_broker_s3" {
 }
 
 resource "aws_iam_policy" "aws_service_broker_s3" {
-  name   = "${var.env_name}_aws_service_broker_s3"
+  name   = "PCFAppDeveloperPolicy-s3"
   description = "Service Broker for AWS Service Key policy for s3"
   policy = "${data.template_file.aws_service_broker_s3.rendered}"
 }
@@ -94,7 +94,7 @@ data "template_file" "aws_service_broker_sqs" {
 }
 
 resource "aws_iam_policy" "aws_service_broker_sqs" {
-  name   = "${var.env_name}_aws_service_broker_sqs"
+  name   = "PCFAppDeveloperPolicy-sqs"
   description = "Service Broker for AWS Service Key policy for sqs"
   policy = "${data.template_file.aws_service_broker_sqs.rendered}"
 }
@@ -112,7 +112,7 @@ data "template_file" "aws_service_broker_dynamodb" {
 }
 
 resource "aws_iam_policy" "aws_service_broker_dynamodb" {
-  name   = "${var.env_name}_aws_service_broker_dynamodb"
+  name   = "PCFAppDeveloperPolicy-dynamodb"
   description = "Service Broker for AWS Service Key policy for dynamodb"
   policy = "${data.template_file.aws_service_broker_dynamodb.rendered}"
 }
