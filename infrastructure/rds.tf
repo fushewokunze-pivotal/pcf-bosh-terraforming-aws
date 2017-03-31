@@ -19,7 +19,7 @@ resource "aws_db_instance" "rds" {
   count = "${var.rds_instance_count}"
 }
 
-resource "aws_db_instance" "aws_service_broker" {
+resource "aws_db_instance" "cf_aws_service_broker" {
   allocated_storage      = 100
   instance_class         = "${var.rds_instance_class}"
   engine                 = "mysql"
