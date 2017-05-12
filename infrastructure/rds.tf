@@ -6,7 +6,7 @@ resource "aws_db_instance" "rds" {
   allocated_storage      = 100
   instance_class         = "${var.rds_instance_class}"
   engine                 = "mysql"
-  engine_version         = "5.6.22"
+  engine_version         = "5.6.34"
   identifier             = "${var.env_name}"
   username               = "${var.rds_db_username}"
   password               = "${random_id.rds_password.b64}"
